@@ -1,0 +1,14 @@
+---
+- hosts: web
+  tasks:
+    - name: install webserver
+      package: name{{item}} state=present
+      with_items:
+       - httpd
+       - git
+
+    - name: start service
+      service: name=httpd state=started enabled=yes
+
+    - name: download code from github
+      git: repo=https://github.com/demoglot/html-sample-food
